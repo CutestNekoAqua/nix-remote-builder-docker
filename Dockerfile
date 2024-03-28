@@ -1,6 +1,8 @@
 FROM nixpkgs/nix-flakes:latest
 
-RUN nix-env -f '<nixpkgs>' -iA \
+RUN nix-channel --add https://nixos.org/channels/nixpkgs-unstable unstable
+
+RUN nix-env -f '<unstable>' -iA \
     openssh \
  && nix-store --gc
 
