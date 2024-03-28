@@ -4,7 +4,7 @@ RUN nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
 RUN nix-channel --update
 
 RUN nix-env -iA \
-    openssh \
+    nixpkgs.openssh \
  && nix-store --gc
 
 RUN mkdir -p /etc/ssh \
