@@ -1,14 +1,13 @@
 FROM nixpkgs/nix-flakes:latest
 
 RUN nix-env -f '<nixpkgs>' -iA \
-    gnused \
     openssh \
  && nix-store --gc
 
 RUN mkdir -p /etc/ssh \
  && echo "sshd:x:498:65534::/var/empty:/run/current-system/sw/bin/nologin" >> /etc/passwd \
  && cp /root/.nix-profile/etc/ssh/sshd_config /etc/ssh \
- && sed -i '/^PermitRootLogin/d' /etc/ssh/sshd_config \
+ && nix-shell -p gnused --run sed -i '/^PermitRootLogin/d' /etc/ssh/sshd_config \
  && echo "PermitRootLogin yes" >> /etc/ssh/sshd_config \
  && ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N "" -t rsa \
  && ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N "" -t dsa \
