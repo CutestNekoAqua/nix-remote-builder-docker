@@ -1,9 +1,10 @@
 FROM nixpkgs/nix-flakes:latest
 
 RUN nix-channel --add https://nixos.org/channels/nixpkgs-unstable unstable
+RUN nix-channel --update
 
-RUN nix-env -f '<unstable>' -iA \
-    openssh \
+RUN nix-env -iA \
+    unstable.openssh \
  && nix-store --gc
 
 RUN mkdir -p /etc/ssh \
