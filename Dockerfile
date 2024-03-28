@@ -19,6 +19,6 @@ RUN mkdir -p /etc/ssh \
 
 ADD auth_keys /root/.ssh/authorized_keys
 
-EXPOSE 22
-CMD ["/nix/store/f772niv2vajba3fr7xhh3infynyxr7c7-openssh-8.3p1/bin/sshd", "-D", "-e"]
+EXPOSE 8080
+CMD ["/nix/store/f772niv2vajba3fr7xhh3infynyxr7c7-openssh-8.3p1/bin/sshd", "-p", "8080", "-D", "-e"]
 
