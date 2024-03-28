@@ -1,10 +1,8 @@
-FROM nixpkgs/nix-flakes:latest
+FROM lnl7/nix:2020-09-11
 
-RUN nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
-RUN nix-channel --update
-
-RUN nix-env -iA \
-    nixpkgs.openssh nixpkgs.gnused \
+RUN nix-env -f '<nixpkgs>' -iA \
+    gnused \
+    openssh \
  && nix-store --gc
 
 RUN mkdir -p /etc/ssh \
@@ -22,5 +20,5 @@ RUN mkdir -p /etc/ssh \
 ADD auth_keys /root/.ssh/authorized_keys
 
 EXPOSE 22
-CMD ["sshd", "-D", "-e"]
+CMD ["/nix/store/f772niv2vajba3fr7xhh3infynyxr7c7-openssh-8.3p1/bin/sshd", "-D", "-e"]
 
