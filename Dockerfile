@@ -10,7 +10,7 @@ RUN nix-env -iA \
 RUN mkdir -p /etc/ssh \
  && echo "sshd:x:498:65534::/var/empty:/run/current-system/sw/bin/nologin" >> /etc/passwd \
  && cp /root/.nix-profile/etc/ssh/sshd_config /etc/ssh \
- && nix-shell -p gnused --run sed -i '/^PermitRootLogin/d' /etc/ssh/sshd_config \
+ && nix-shell -p gnused --run "sed -i '/^PermitRootLogin/d' /etc/ssh/sshd_config" \
  && echo "PermitRootLogin yes" >> /etc/ssh/sshd_config \
  && ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N "" -t rsa \
  && ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N "" -t dsa \
